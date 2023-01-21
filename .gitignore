@@ -354,4 +354,5 @@ ny_taxi_postgres_data/
 ny_taxi_data/
 pagadmin_data/
 .terraform/
-.terraform.lock.hcl
+.terraform.lock.hcl/
+1_terraform_gcp/
