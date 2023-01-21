@@ -1,0 +1,79 @@
+## Run docker postgres image
+docker run -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  postgres:13
+
+
+## Using pgcli to connect to Postgres
+pgcli -h localhost -p 5432 -u root -d ny_taxi
+
+## pgadmin4
+docker run -it \
+  -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+  -e PGADMIN_DEFAULT_PASSWORD="root" \
+  -p 8080:80 \
+  dpage/pgadmin4
+
+## Network
+docker network create pg-network
+
+docker run -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  --network=pg-network \
+  --name=pg-database \
+  postgres:13
+
+docker run -it \
+  -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+  -e PGADMIN_DEFAULT_PASSWORD="root" \
+  -p 8080:80 \
+  --network=pg-network \
+  --name pgadmin \
+  dpage/pgadmin4
+
+## Convert notebook to python script
+jupyter nbconvert --to=script ingest_data.ipynb
+
+## Run python script
+python ingest_data.py \
+    --user=root\
+    --password=root\
+    --host=localhost\
+    --port=5432\
+    --database=ny_taxi\
+    --table=yellow_taxi_data \ # Replace table name and url file
+    --url_file='https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet'
+
+## Data
+zones = 'https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv'
+yellow_trips_2021 = 'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet'
+green_trips_2019 = 'https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2019-01.parquet'
+
+## Build docker image
+docker build -t taxi_ingest:V001 .
+
+## Run docker compose
+docker-compose up -d
+
+## Update network name with docker compose network name
+## projectfolder'+'_default
+
+## Run docker image
+docker run -it \
+--network=2_docker_sql_default \
+taxi_ingest:V001 \
+    --user=root \
+    --password=root \
+    --host=pgdatabase \
+    --port=5432 \
+    --database=ny_taxi \
+    --table=green_trips_2019 \
+    --url_file='https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2019-01.parquet'
