@@ -348,6 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#other
 .credential/
 .ipynb_checkpoints/
 ny_taxi_postgres_data/
@@ -356,3 +358,4 @@ pagadmin_data/
 .terraform/
 .terraform.lock.hcl/
 1_terraform_gcp/
+spinner.py
