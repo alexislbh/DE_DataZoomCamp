@@ -69,11 +69,11 @@ docker-compose up -d
 ## Run docker image
 docker run -it \
 --network=2_docker_sql_default \
-taxi_ingest:V001 \
+taxi_ingest:V002 \
     --user=root \
     --password=root \
     --host=pgdatabase \
     --port=5432 \
     --database=ny_taxi \
-    --table=green_trips_2019 \
-    --url_file='https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2019-01.parquet'
+    --table=green_trips_2020_01 \
+    --url_file='https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2020-01.parquet'

@@ -6,6 +6,8 @@ import argparse
 import pandas as pd
 import pyarrow.parquet as pq
 from sqlalchemy import create_engine
+import traceback
+import spinner
 
 def main(params):
     user = params.user
@@ -25,8 +27,13 @@ def main(params):
         df = pq.read_table(file_name).to_pandas()
     print(f'Data from {file_name} readed')
 
-    df.to_sql(table, engine, index=False, if_exists='append')
-    print(f'Data from {file_name} ingested\nDatabase : {database} - Table : {table}')
+    try:
+        with spinner.Spinner():
+            df.to_sql(table, engine, index=False, if_exists='append')
+    except Exception:
+        traceback.print_exc()
+    else:
+        print(f'Data from {file_name} ingested\nDatabase : {database} - Table : {table}')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'Ingest parquet data into postgresql')

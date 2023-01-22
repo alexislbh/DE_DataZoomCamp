@@ -4,5 +4,6 @@ RUN pip install wget argparse pyarrow pandas sqlalchemy psycopg2-binary
 
 WORKDIR /app
 COPY ingest_data.py ingest_data.py
+COPY spinner.py spinner.py
 
 ENTRYPOINT [ "python", "ingest_data.py" ]
