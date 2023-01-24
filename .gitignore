@@ -361,7 +361,6 @@ week_1/1_terraform_gcp/VM_laucher
 **/.terraform.lock.hcl
 **/terraform.tfstate
 **/terraform.tfstate.backup
-week_1/spinner.py
 week_1/test/
 **/.DS_Store
 .DS_Store
