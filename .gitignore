@@ -351,7 +351,6 @@ MigrationBackup/
 
 #other
 .credential/
-week_1/2_docker_sql/.ipynb_checkpoints
 week_1/2_docker_sql/ny_taxi_postgres_data
 week_1/2_docker_sql/ny_taxi_data
 week_1/2_docker_sql/pgadmin_data/
@@ -360,3 +359,7 @@ week_1/spinner.py
 week_1/test/
 **/.DS_Store
 .DS_Store
+**/.ipynb_checkpoints
+.ipynb_checkpoints
+!week_1/1_terraform_gcp/homework/main.tf
+!week_1/1_terraform_gcp/homework/variables.tf
