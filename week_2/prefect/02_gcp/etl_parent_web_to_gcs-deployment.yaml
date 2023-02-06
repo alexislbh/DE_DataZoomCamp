@@ -1,0 +1,59 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-parent-web-to-gcs'
+###
+name: Web to Gcs Param
+description: null
+version: 400c36922a2000a8766c5a34cbe5ce00
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags: []
+parameters: {"color": "yellow", "year": 2019, "months": [2, 3]}
+schedule: null
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-parent-web-to-gcs
+manifest_path: null
+storage: null
+path: /Users/alex/Code/Zoomcamp_DataEngineering/week_2/prefect/02_gcp
+entrypoint: etl_web_to_gcs_param.py:etl_parent_web_to_gcs
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    color:
+      title: color
+      default: yellow
+      position: 0
+      type: string
+    year:
+      title: year
+      default: 2019
+      position: 1
+      type: integer
+    months:
+      title: months
+      default:
+      - 2
+      - 3
+      position: 2
+      type: array
+      items:
+        type: integer
+  required: null
+  definitions: null
+timestamp: '2023-02-06T18:27:52.152188+00:00'
